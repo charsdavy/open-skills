@@ -1,0 +1,4 @@
+interface:
+  display_name: "iCloud 同步排障与修复"
+  short_description: "从设备日志和真实云端字段定位 CloudKit 故障，安全修复并验证"
+  default_prompt: "使用 $icloud-sync-repair 排查当前项目的 iCloud 同步异常，先定位根因，再执行已授权的最小修复并验证。"
