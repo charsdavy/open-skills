@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube To Article"
+  short_description: "Turn YouTube videos into Markdown articles"
+  default_prompt: "Use $youtube-to-article to extract a YouTube video into a structured Markdown article."
