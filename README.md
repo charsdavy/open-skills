@@ -52,6 +52,7 @@ python3 scripts/install_skills.py --target claude --claude-dir /path/to/profile/
 
 | skill | explain |
 |---|---|
+| app-store-creative-studio | Create English App Store search/header artwork and real screenshots with official Apple device frames, platform coverage, and asset-specific quality checks. |
 | openspec-compound | Add knowledge precipitation and reuse capabilities to OpenSpec workflows, and refine reusable scenarios in changes to openspec/solutions/ knowledge base. |
 | youtube-to-article | Analyze and interpret YouTube videos, summarize and generate articles that can be published. |
 | icloud-sync-repair | Diagnose iCloud/CloudKit sync failures using device logs and schema exports, apply safe repairs, and verify recovery. |

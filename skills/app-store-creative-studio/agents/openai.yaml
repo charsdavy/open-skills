@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Store Creative Studio"
+  short_description: "Premium App Store artwork with official device frames"
+  default_prompt: "Use $app-store-creative-studio to create English App Store search, header, and officially framed screenshots for every supported platform in this project."
