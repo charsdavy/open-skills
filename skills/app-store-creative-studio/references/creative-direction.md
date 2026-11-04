@@ -24,21 +24,23 @@ Before production, specify audience/pain, one verified outcome, visual proof, br
 
 Do not claim “free,” “lifetime,” “offline AI,” “16× faster,” perfect privacy, or “works everywhere” unless current evidence supports the precise statement and the placement permits it. Optional features/external API costs must not become misleading included-value claims.
 
-## Search/header ONLY: composition defaults, not official safe zones
+## Search/header ONLY: 75% core-content area, not an official safe zone
 
 **Do not use this section's central grouping, four-sided margins, or percentage rectangles for device screenshots, including framed marketing versions.** Screenshots follow the independent layout rules in [screenshots-and-bezels.md](screenshots-and-bezels.md).
 
-For **both Search Results and Header**, prioritize a **compact central cluster plus generous negative space on all four sides**. Consider the combined bounds of the headline, brand, support, and main illustration, not just the headline's alignment. Keep components near enough to read as one group, with internal breathing room. Do not scatter a logo in one corner, a slogan in another, and feature cards along the edges.
+For **both Search Results and Header**, the **core content region must occupy 75% of the total image area**, arranged as one cohesive central cluster with clear space on all four sides. The region is the combined bounding rectangle of the headline, brand, support, and main illustration, excluding background and sacrificial decoration. Keep components near enough to read as one group, with internal breathing room. Do not scatter a logo in one corner, a slogan in another, and feature cards along the edges merely to enlarge the bounds.
 
-Start search essential content around x=18–82%, y=16–75%; start an ultrawide header around x=20–80%, y=20–70%. Reserve additional bottom room if actual store templates overlay app information. Adjust to official templates and observed previews, never a magic percentage.
+Measure occupancy as `core bounding-box area / full image area = 0.75`; with normalized `[left, top, right, bottom]`, use `(right - left) * (bottom - top) = 0.75`. This does **not** mean 75% of both width and height, which would cover only 56.25% of the image. A centered starting rectangle spanning approximately 86.6% of both dimensions (x=6.7–93.3%, y=6.7–93.3%) meets the target after rounding. Search and ultrawide headers may use different width/height proportions, but both retain the 75% area target.
 
-These starting rectangles occupy only about 64% × 59% of the search canvas and 60% × 50% of the header canvas. The remaining perimeter is intentional crop/overlay reserve. Keep it visually quiet: a continuous brand background or subtle gradient is fine; small peripheral labels, stickers, feature chips, and decorative high-contrast objects are not. Do not compensate for sparse content by spreading the group toward the borders.
+The remaining 25% is perimeter/crop/overlay reserve. Keep it visually quiet: a continuous brand background or subtle gradient is fine; small peripheral labels, stickers, feature chips, and decorative high-contrast objects are not. Redistribute margins for actual lower overlays without reverting to an undersized core or spreading isolated elements toward the borders. Verify official templates and observed previews; the 75% target is a creative constraint, not an Apple safe-area guarantee. If it cannot coexist with required crops/overlays, report that conflict rather than silently shrinking content.
 
 Identify sacrificial decoration separately from essential words, identifiable artwork, and complete hardware. Do not plan to crop a bezel. If shrinking makes UI unreadable, shorten copy or use fewer devices rather than microscopic screens.
 
 ## Search/header ONLY: model-agnostic prompt recipe
 
 Use this recipe for Search Results or Header artwork, never as a device-screenshot layout template.
+
+Resolve every bracketed placeholder into project-specific content before calling the generator. Treat Apple templates only as geometry evidence, not visual/style references: their green safe-area rectangles, dimensions, and guide labels must never appear in the campaign. Inspect the actual returned artwork for product-specific content rather than accepting a template, empty background, or instructions rendered as an image.
 
 ```text
 Create ONE [Search Results or Header] image for [app], in English.
@@ -48,8 +50,11 @@ References: [explicit attachments and the role of each].
 Preserve: [identity, colors, feature truth].
 Visual language: [material, lighting, tone, type hierarchy].
 Composition: ONE compact, centered cluster containing ALL meaningful text and artwork.
-Keep the whole cluster within [foreground rectangle]. Leave generous quiet background
-on ALL FOUR sides: [left/right/top/bottom margins], with extra bottom-overlay reserve.
+The combined core-content bounding rectangle must occupy 75% of the TOTAL IMAGE AREA,
+not 75% of each dimension. Use [foreground rectangle with width * height = 0.75].
+Keep the remaining 25% as quiet background on ALL FOUR sides:
+[left/right/top/bottom margins], accounting for bottom overlays.
+Do not make the core tiny to create oversized margins or count background as content.
 Do not distribute content across the full canvas, place important elements near edges,
 or fill the perimeter with labels, badges, or decorative objects.
 Exact text: [quoted headline, line breaks, support, limited labels].

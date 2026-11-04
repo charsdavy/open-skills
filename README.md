@@ -56,3 +56,5 @@ python3 scripts/install_skills.py --target claude --claude-dir /path/to/profile/
 | openspec-compound | Add knowledge precipitation and reuse capabilities to OpenSpec workflows, and refine reusable scenarios in changes to openspec/solutions/ knowledge base. |
 | youtube-to-article | Analyze and interpret YouTube videos, summarize and generate articles that can be published. |
 | icloud-sync-repair | Diagnose iCloud/CloudKit sync failures using device logs and schema exports, apply safe repairs, and verify recovery. |
+
+`app-store-creative-studio` requires an image-generation capability in the host for creative artwork, and real app capture plus official Apple artwork for framed screenshots. Its bundled scripts plan and validate assets; they do not render images or install a generator. It prefers the host's native image tool and never silently switches to a paid API.

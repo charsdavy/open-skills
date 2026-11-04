@@ -103,6 +103,16 @@ class DeliveryTests(unittest.TestCase):
         result = self.check(build_plan(["mac"]))
         self.assertFalse(result["local_validation_passed"])
 
+    def test_completed_claims_and_template_evidence_without_assets_cannot_pass(self):
+        plan = self.complete(["mac"], ["search", "header"])
+        plan["assets"] = []
+        self.image("evidence/header-official-template-preview.png", (0, 128, 0))
+        result = self.check(plan)
+        self.assertFalse(result["local_validation_passed"])
+        self.assertIn("search: expected 1 assets, found 0", result["errors"])
+        self.assertIn("header: expected 1 assets, found 0", result["errors"])
+        self.assertEqual(result["inspected_files"], [])
+
     def test_missing_duo_inner_detected_even_if_removed_from_manifest(self):
         plan = self.complete(["iphone"], ["screenshots"])
         plan["requirements"] = [group for group in plan["requirements"] if group["surface"] != "duo-inner"]
