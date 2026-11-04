@@ -6,6 +6,8 @@ Use this conditional route when the image tool's visible response is empty or la
 
 In the verified Lifity production run on 2026-11-04, the tool display exposed neither an attachment nor a path, and the expected generated-images directory was absent. The same task's CLI transcript nevertheless contained completed `image_generation_call` records whose `result` strings held the original PNG bytes in base64. Recovering those records yielded valid images and their exact generation prompts. Search and Header were subsequently visually reviewed, revised with the native image tool, exported to Apple's dimensions and audited. This establishes the recovery route for that observed schema, not a guarantee about every host or future schema.
 
+The Burlin run on the same date independently confirmed the same failure mode: checking the default image directory, Downloads, temporary outputs and MCP resource lists found no originals, but the current task's receipts retained all nine original PNGs. Previous task-relevant project delivery notes and recovery scripts revealed the missing route. If the user cites a prior successful recovery, inspect those relevant delivery records before repeating an unsupported claim that extraction is impossible; do not substitute their artwork or scan unrelated conversation contents. A missing default directory is not evidence that the tool result contains no image.
+
 Relevant record shape; never copy a real full transcript into a delivery:
 
 ```json
@@ -16,6 +18,7 @@ Relevant record shape; never copy a real full transcript into a delivery:
 ## Find only this task's transcript
 
 - Use an already known session-file path, or identify the current thread from `CODEX_THREAD_ID` and locate its filename under the permitted `$CODEX_HOME/sessions` directory (`~/.codex/sessions` when unset). Limit discovery to the task's known date directories; a task spanning midnight may be in its start-date directory.
+- If `CODEX_THREAD_ID` is unavailable but the host exposes the Node REPL's documented request metadata, `nodeRepl.write({threadId: nodeRepl.requestMeta?.threadId})` can provide the current task ID. Read only that field, not the whole metadata object, and pass the observed ID explicitly to `--thread-id`. This is a host-dependent alternative, not an API available in every environment; never guess an ID or select another conversation.
 - For example, after determining the actual task start date, `find "$HOME/.codex/sessions/YYYY/MM/DD" -maxdepth 1 -type f -name "*$CODEX_THREAD_ID*.jsonl"` lists candidate names without reading other conversations. Do not execute this with an empty thread ID or literal date placeholders.
 - Do not scan all session contents, copy unrelated chats, extract credentials, inspect `internal_chat_message_metadata_passthrough`, or scrape private app caches. A denied UI/export route is not permission to bypass it through internal storage. Use transcript recovery only when that file access is independently permitted; otherwise stop and request an original-file export.
 - The helper requires the file's `session_meta.payload.id` to match the explicit `--thread-id` or current `CODEX_THREAD_ID`. It never discovers session files or opens network resources on its own.
@@ -53,3 +56,9 @@ An export failure is not proof the generation itself failed. Preserve the observ
 ## Regression checks
 
 Run `python -m unittest discover -s scripts/tests -v` from the skill directory. Recovery tests cover exact-byte preservation, selected-call identity, minimal provenance, wrong sessions, corrupt/empty results, live partial tails, format/alpha preservation and no-overwrite behavior. These fixtures do not prove a live generator works. Separately, the helper was exercised against the Lifity run's selected Search and Header records: the recovered 1536 × 1024 and 1913 × 822 originals matched the delivered source files byte-for-byte and by SHA-256. No regeneration or external API was involved in that check.
+
+For Burlin, this bundled helper was also run against the current task's selected Search (1536 × 1024) and Header (1914 × 822) call IDs. Both exports matched the independently recovered originals byte-for-byte and by SHA-256; all 41 planner/auditor/recovery tests passed. Original recovery was complete even though the campaign's separate layout/Apple-preview acceptance remained incomplete. Do not turn a successful recovery check into a claim that the artwork passed those other gates.
+
+## Keep installed and source copies aligned
+
+When maintaining this skill in both a source repository and an installed skills directory, editing one does not update the other. In the Burlin investigation, the source repository already contained recovery guidance and a helper while the loaded installation still lacked them. Synchronize and compare `SKILL.md`, `references/generation-and-export.md`, `references/delivery-and-qa.md`, this reference, `scripts/recover_native_image.py`, and `scripts/tests/test_native_recovery.py`. Preserve local virtual environments and unrelated files. Validate the actual installed entrypoint and linked recovery files, not just the repository copy; do not claim synchronization before file comparison succeeds.
